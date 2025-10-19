@@ -145,7 +145,7 @@ export default function Dashboard() {
       .then(setData)
       .catch((e) =>
         setErr(
-          e?.response?.data?.message || e?.message || "Load dashboard failed"
+          e?.response?.data?.message || e?.message || "Tải dashboard thất bại"
         )
       );
   }, [days]);
@@ -250,7 +250,7 @@ export default function Dashboard() {
       `}</style>
 
       <div className="d-flex align-items-center justify-content-between mb-3">
-        <h3 className="m-0">Dashboard</h3>
+        <h3 className="m-0">Bảng điều khiển</h3>
         <div className="btn-group">
           {[7, 14, 30].map((d) => (
             <button
@@ -276,7 +276,7 @@ export default function Dashboard() {
           value={fmtInt(s.totalPaidOrders ?? 0)}
         />
         <Stat title="Vé đã bán" value={fmtInt(s.totalTicketsSold ?? 0)} />
-        <Stat title="Sự kiện Public" value={fmtInt(s.publishedEvents ?? 0)} />
+        <Stat title="Sự kiện Công khai" value={fmtInt(s.publishedEvents ?? 0)} />
         <Stat title="Sắp diễn ra" value={fmtInt(s.upcomingEvents ?? 0)} />
       </div>
 
@@ -338,7 +338,7 @@ export default function Dashboard() {
 
       {/* Top Events – đẹp & dễ đọc hơn */}
       <SectionHeader
-        title="Top Events theo doanh thu"
+        title="Top Sự kiện theo doanh thu"
         right={
           <div className="btn-group btn-group-sm">
             <button

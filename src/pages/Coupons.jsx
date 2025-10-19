@@ -50,10 +50,10 @@ export default function Coupons(){
 
   return (
     <div>
-      <h3>Coupons</h3>
+      <h3>Phiếu giảm giá</h3>
       <div className="row g-2 mb-3">
         <div className="col-2">
-          <input className="form-control" placeholder="CODE"
+          <input className="form-control" placeholder="MÃ"
             value={form.code||''}
             onChange={e=>setForm(f=>({...f,code:e.target.value.toUpperCase()}))}/>
         </div>
@@ -61,13 +61,13 @@ export default function Coupons(){
         <div className="col-2">
           <select className="form-select" value={form.type}
             onChange={e=>setForm(f=>({...f,type:e.target.value}))}>
-            <option value="PERCENT">% Percent</option>
-            <option value="AMOUNT">Amount (VND)</option>
+            <option value="PERCENT">% Phần trăm</option>
+            <option value="AMOUNT">Số tiền (VND)</option>
           </select>
         </div>
 
         <div className="col-2">
-          <input type="number" className="form-control" placeholder="Value"
+          <input type="number" className="form-control" placeholder="Giá trị"
             value={form.value||0}
             onChange={e=>setForm(f=>({...f,value:Number(e.target.value)}))}/>
         </div>
@@ -85,23 +85,23 @@ export default function Coupons(){
         </div>
 
         <div className="col-1">
-          <input type="number" className="form-control" placeholder="Max use"
+          <input type="number" className="form-control" placeholder="Sử dụng tối đa"
             value={form.maxUse}
             onChange={e=>setForm(f=>({...f,maxUse:e.target.value}))}/>
         </div>
         <div className="col-1">
-          <input type="number" className="form-control" placeholder="Per user"
+          <input type="number" className="form-control" placeholder="Mỗi người"
             value={form.perUserLimit}
             onChange={e=>setForm(f=>({...f,perUserLimit:e.target.value}))}/>
         </div>
 
         <div className="col"><button className="btn btn-primary" onClick={onSave}>
-          {editingId ? 'Update':'Create'}</button></div>
+          {editingId ? 'Cập nhật':'Tạo'}</button></div>
       </div>
 
       <table className="table table-sm">
         <thead><tr>
-          <th>Code</th><th>Type</th><th>Value</th><th>Used</th><th>Start</th><th>End</th><th/></tr></thead>
+          <th>Mã</th><th>Loại</th><th>Giá trị</th><th>Đã dùng</th><th>Bắt đầu</th><th>Kết thúc</th><th/></tr></thead>
         <tbody>
           {list.map(c=>(
             <tr key={c.id}>
@@ -112,11 +112,11 @@ export default function Coupons(){
               <td>{fromISO(c.startAt)}</td>
               <td>{fromISO(c.endAt)}</td>
               <td className="text-end">
-                <button className="btn btn-outline-primary btn-sm me-2" onClick={()=>onEdit(c)}>Edit</button>
-                <button className="btn btn-outline-danger btn-sm" onClick={async()=>{await deleteCoupon(c.id); refresh()}}>Delete</button>
+                <button className="btn btn-outline-primary btn-sm me-2" onClick={()=>onEdit(c)}>Chỉnh sửa</button>
+                <button className="btn btn-outline-danger btn-sm" onClick={async()=>{await deleteCoupon(c.id); refresh()}}>Xóa</button>
                 <button className="btn btn-outline-secondary btn-sm ms-2"
                   onClick={async()=>{ const r = await validateCoupon(c.code); alert('OK: '+JSON.stringify(r.coupon)) }}>
-                  Validate
+                  Xác thực
                 </button>
               </td>
             </tr>

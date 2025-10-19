@@ -18,12 +18,12 @@ export default function InventoryConfig(){
       holdTimeoutSec: Number(cfg.holdTimeoutSec),
       allowOverbook: !!cfg.allowOverbook
     });
-    alert('Saved');
+    alert('Đã lưu');
   }
 
   return (
     <div>
-      <h3>Inventory Config</h3>
+      <h3>Cấu hình Kho hàng</h3>
 
       <div className="row g-2 mb-3">
         <div className="col-4">
@@ -39,7 +39,7 @@ export default function InventoryConfig(){
         {selected && (
           <>
             <div className="col-3">
-              <label className="form-label">Hold timeout (sec)</label>
+              <label className="form-label">Thời gian giữ (giây)</label>
               <input className="form-control" type="number"
                      value={cfg.holdTimeoutSec}
                      onChange={e=>setCfg(c=>({...c, holdTimeoutSec:e.target.value}))}/>
@@ -49,11 +49,11 @@ export default function InventoryConfig(){
                 <input className="form-check-input" type="checkbox"
                   checked={cfg.allowOverbook}
                   onChange={e=>setCfg(c=>({...c, allowOverbook:e.target.checked}))}/>
-                <label className="form-check-label">Allow overbook</label>
+                <label className="form-check-label">Cho phép đặt quá</label>
               </div>
             </div>
             <div className="col-auto d-flex align-items-end">
-              <button className="btn btn-primary" onClick={onSave}>Save</button>
+              <button className="btn btn-primary" onClick={onSave}>Lưu</button>
             </div>
           </>
         )}

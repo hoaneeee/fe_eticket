@@ -24,7 +24,7 @@ export default function Orders() {
 
   return (
     <div>
-      <h3>Orders</h3>
+      <h3>Đơn hàng</h3>
 
       {loading && <div>Đang tải...</div>}
 
@@ -33,10 +33,10 @@ export default function Orders() {
           <table className="table table-sm align-middle">
             <thead>
               <tr>
-                <th>Code</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Created</th>
+                <th>Mã</th>
+                <th>Tổng</th>
+                <th>Trạng thái</th>
+                <th>Tạo lúc</th>
                 <th />
               </tr>
             </thead>
@@ -58,7 +58,7 @@ export default function Orders() {
                       className="btn btn-outline-primary btn-sm"
                       onClick={() => navigate(`/admin/refunds?orderId=${o.id}`)}
                     >
-                      Refunds
+                      Hoàn tiền
                     </button>
                   </td>
                 </tr>
@@ -72,14 +72,14 @@ export default function Orders() {
               disabled={page <= 0}
               onClick={() => setPage((p) => p - 1)}
             >
-              Prev
+              Trước
             </button>
             <button
               className="btn btn-light"
               disabled={page >= (data?.totalPages ?? 1) - 1}
               onClick={() => setPage((p) => p + 1)}
             >
-              Next
+              Tiếp
             </button>
           </div>
         </>

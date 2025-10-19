@@ -39,37 +39,37 @@ export default function AdminNavbar() {
       <h4 className="m-0">E-Ticket Admin</h4>
       <div className="d-flex gap-2 align-items-center">
         <NavLink className={linkCls} to="/admin">
-          Dashboard
+          Bảng điều khiển
         </NavLink>
         <NavLink className={linkCls} to="/admin/events">
-          Events
+          Sự kiện
         </NavLink>
         <NavLink className={linkCls} to="/admin/orders">
-          Orders
+          Đơn hàng
         </NavLink>
         <NavLink className={linkCls} to="/admin/checkin">
           Check-in
         </NavLink>
         <NavLink className={linkCls} to="/admin/venues">
-          Venues
+          Địa điểm
         </NavLink>
         <NavLink className={linkCls} to="/admin/seatmaps">
-          Seat Maps
+          Sơ đồ chỗ ngồi
         </NavLink>
         <NavLink className={linkCls} to="/admin/coupons">
-          Coupons
+          Phiếu giảm giá
         </NavLink>
         <NavLink className={linkCls} to="/admin/inventory">
-          Inventory
+          Kho hàng
         </NavLink>
 
         {/* Refunds + badge */}
         <button
           className="btn btn-outline-secondary position-relative"
           onClick={() => navigate("/admin/refunds")}
-          title="Refunds"
+          title="Hoàn tiền"
         >
-          Refunds
+          Hoàn tiền
           {count > 0 && (
             <span
               className="badge rounded-pill bg-danger ms-2"
@@ -84,7 +84,7 @@ export default function AdminNavbar() {
           className="btn btn-outline-danger"
           onClick={() => setToken(null)}
         >
-          Logout
+          Đăng xuất
         </button>
       </div>
     </div>
