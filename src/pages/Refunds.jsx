@@ -128,8 +128,8 @@ export default function Refunds() {
     return (
       <div>
         <div className="d-flex align-items-center mb-3">
-          <h3 className="mb-0">Refunds</h3>
-          <span className="badge bg-warning ms-3">Pending: {pendingBadge}</span>
+          <h3 className="mb-0">Hoàn tiền</h3>
+          <span className="badge bg-warning ms-3">Chờ duyệt: {pendingBadge}</span>
         </div>
 
         <div className="row g-2 align-items-center mb-3" style={{ maxWidth: 520 }}>
@@ -155,14 +155,14 @@ export default function Refunds() {
                 }
               }}
             >
-              Open
+              Mở
             </button>
           </div>
         </div>
 
         <div className="card shadow-sm">
           <div className="card-body">
-            <h6 className="fw-bold mb-3">Recent Pending Refunds</h6>
+            <h6 className="fw-bold mb-3">Yêu cầu hoàn tiền chờ duyệt gần đây</h6>
 
             {loadingDash ? (
               <div className="text-secondary">Đang tải...</div>
@@ -173,10 +173,10 @@ export default function Refunds() {
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Order</th>
-                    <th>Amount</th>
-                    <th>Reason</th>
-                    <th>Created</th>
+                    <th>Đơn hàng</th>
+                    <th>Số tiền</th>
+                    <th>Lý do</th>
+                    <th>Tạo lúc</th>
                     <th />
                   </tr>
                 </thead>
@@ -196,7 +196,7 @@ export default function Refunds() {
                           className="btn btn-outline-primary btn-sm"
                           onClick={() => nav(`/admin/refunds?orderId=${r.orderId}`)}
                         >
-                          Open order
+                          Mở đơn hàng
                         </button>
                       </td>
                     </tr>
@@ -226,13 +226,13 @@ export default function Refunds() {
 
   return (
     <div>
-      <h3>Refunds for Order #{orderId}</h3>
+      <h3>Hoàn tiền cho Đơn hàng #{orderId}</h3>
 
       <div className="row g-2 mb-3" style={{ maxWidth: 600 }}>
         <div className="col-4">
           <input
             className="form-control"
-            placeholder="Amount"
+            placeholder="Số tiền"
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -241,14 +241,14 @@ export default function Refunds() {
         <div className="col">
           <input
             className="form-control"
-            placeholder="Reason"
+            placeholder="Lý do"
             value={reason}
             onChange={(e) => setReason(e.target.value)}
           />
         </div>
         <div className="col-auto">
           <button className="btn btn-primary" disabled={busy} onClick={onCreate}>
-            Create
+            Tạo
           </button>
         </div>
       </div>
@@ -257,10 +257,10 @@ export default function Refunds() {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Reason</th>
-            <th>At</th>
+            <th>Số tiền</th>
+            <th>Trạng thái</th>
+            <th>Lý do</th>
+            <th>Lúc</th>
             <th />
           </tr>
         </thead>
@@ -296,7 +296,7 @@ export default function Refunds() {
                         await refresh();
                       }}
                     >
-                      Approve
+                      Duyệt
                     </button>
                     <button
                       className="btn btn-outline-danger btn-sm"
@@ -305,7 +305,7 @@ export default function Refunds() {
                         await refresh();
                       }}
                     >
-                      Reject
+                      Từ chối
                     </button>
                   </>
                 )}
@@ -317,7 +317,7 @@ export default function Refunds() {
                       await refresh();
                     }}
                   >
-                    Mark paid
+                    Đánh dấu đã thanh toán
                   </button>
                 )}
               </td>

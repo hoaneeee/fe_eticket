@@ -36,7 +36,7 @@ export default function ZonePricing(){
 
   return (
     <div>
-      <h3 className="mb-3">Zone Pricing for Event #{eventId}</h3>
+      <h3 className="mb-3">Giá theo khu vực cho Sự kiện #{eventId}</h3>
       <div className="mb-2 text-muted">
         Seat map: {event?.seatMapId ? event.seatMapId : <em>(chưa gán)</em>}
       </div>
@@ -49,29 +49,29 @@ export default function ZonePricing(){
         <div className="col-4">
           <select className="form-select" value={form.ticketTypeId}
                   onChange={e=>setForm(f=>({...f, ticketTypeId:e.target.value}))}>
-            <option value="">-- Ticket type --</option>
+            <option value="">-- Loại vé --</option>
             {tickets.map(t => <option key={t.id} value={t.id}>{t.name} ({t.price.toLocaleString()}đ)</option>)}
           </select>
         </div>
         <div className="col-4">
           <select className="form-select" value={form.seatZoneId}
                   onChange={e=>setForm(f=>({...f, seatZoneId:e.target.value}))} disabled={!zones.length}>
-            <option value="">-- Zone --</option>
+            <option value="">-- Khu vực --</option>
             {zones.map(z => <option key={z.id} value={z.id}>{z.code} - {z.name}</option>)}
           </select>
         </div>
         <div className="col-3">
-          <input className="form-control" type="number" placeholder="Price (VND)"
+          <input className="form-control" type="number" placeholder="Giá (VND)"
                  value={form.price} onChange={e=>setForm(f=>({...f, price:e.target.value}))}/>
         </div>
         <div className="col-1 d-grid">
           <button className="btn btn-primary" onClick={onSave}
-                  disabled={!form.ticketTypeId || !form.seatZoneId || !form.price}>Save</button>
+                  disabled={!form.ticketTypeId || !form.seatZoneId || !form.price}>Lưu</button>
         </div>
       </div>
 
       <table className="table table-sm">
-        <thead><tr><th>Ticket Type</th><th>Zone</th><th>Price</th><th/></tr></thead>
+        <thead><tr><th>Loại vé</th><th>Khu vực</th><th>Giá</th><th/></tr></thead>
         <tbody>
           {prices.map(p => (
             <tr key={p.id}>
@@ -80,7 +80,7 @@ export default function ZonePricing(){
               <td>{Number(p.price).toLocaleString('vi-VN')}đ</td>
               <td className="text-end">
                 <button className="btn btn-outline-danger btn-sm" onClick={async()=>{ await deleteZonePrice(p.id); setPrices(await listZonePricesByEvent(Number(eventId))) }}>
-                  Delete
+                  Xóa
                 </button>
               </td>
             </tr>

@@ -87,7 +87,7 @@ useEffect(() => {
 
   return (
     <div>
-      <h3 className="mb-3">Seat Map Editor</h3>
+      <h3 className="mb-3">Trình chỉnh sửa sơ đồ chỗ ngồi</h3>
 
       <div className="row g-2 mb-3">
         <div className="col-4">
@@ -98,7 +98,7 @@ useEffect(() => {
         </div>
         <div className="col-4">
           <select className="form-select" value={mapId} onChange={e=>setMapId(e.target.value)}>
-            <option value="">-- Chọn SeatMap --</option>
+            <option value="">-- Chọn Sơ đồ chỗ ngồi --</option>
             {maps.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
           </select>
         </div>
@@ -160,7 +160,7 @@ useEffect(() => {
       </button>
       {drawing && (
         <button className="btn btn-primary" onClick={finishPolygon}>
-          Finish polygon
+          Hoàn thành polygon
         </button>
       )}
     </div>
@@ -169,24 +169,24 @@ useEffect(() => {
 
 
       <div className="row g-2 mb-3">
-        <div className="col-2"><input className="form-control" placeholder="Code" value={form.code}
+        <div className="col-2"><input className="form-control" placeholder="Mã" value={form.code}
               onChange={e=>setForm(f=>({...f,code:e.target.value}))}/></div>
-        <div className="col-3"><input className="form-control" placeholder="Name" value={form.name}
+        <div className="col-3"><input className="form-control" placeholder="Tên" value={form.name}
               onChange={e=>setForm(f=>({...f,name:e.target.value}))}/></div>
-        <div className="col-2"><input className="form-control" type="number" placeholder="Capacity" value={form.capacity}
+        <div className="col-2"><input className="form-control" type="number" placeholder="Sức chứa" value={form.capacity}
               onChange={e=>setForm(f=>({...f,capacity:e.target.value}))}/></div>
         <div className="col-5"><input className="form-control" placeholder="Polygon (x,y ...)" value={form.polygon}
               onChange={e=>setForm(f=>({...f,polygon:e.target.value}))}/></div>
         <div className="col-12 col-md-auto">
           <button className="btn btn-primary" onClick={onAddZone}
                   disabled={!form.code || !form.name || !form.polygon || !mapId}>
-            Add Zone
+            Thêm khu vực
           </button>
         </div>
       </div>
 
       <table className="table table-sm align-middle">
-        <thead><tr><th>Code</th><th>Name</th><th>Capacity</th><th>Polygon</th><th/></tr></thead>
+        <thead><tr><th>Mã</th><th>Tên</th><th>Sức chứa</th><th>Polygon</th><th/></tr></thead>
         <tbody>
           {zones.map(z=>(
             <tr key={z.id}>
@@ -196,7 +196,7 @@ useEffect(() => {
               <td className="small text-muted" style={{maxWidth:320, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{z.polygon}</td>
               <td className="text-end">
                 <button className="btn btn-outline-danger btn-sm" onClick={async()=>{ await deleteZone(z.id); setZones(await getZones(Number(mapId))) }}>
-                  Delete
+                  Xóa
                 </button>
               </td>
             </tr>

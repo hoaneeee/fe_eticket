@@ -46,30 +46,30 @@ export default function Tickets() {
 
   return (
     <div>
-      <h3>Tickets of Event #{id}</h3>
+      <h3>Vé của Sự kiện #{id}</h3>
       <div className="row g-2 mb-3">
         <div className="col-4">
-          <input className="form-control" placeholder="Name"
+          <input className="form-control" placeholder="Tên"
             value={form.name}
             onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
         </div>
         <div className="col-3">
-          <input className="form-control" type="number" placeholder="Price"
+          <input className="form-control" type="number" placeholder="Giá"
             value={form.price}
             onChange={e => setForm(f => ({ ...f, price: Number(e.target.value) }))} />
         </div>
         <div className="col-3">
-          <input className="form-control" type="number" placeholder="Quota"
+          <input className="form-control" type="number" placeholder="Hạn ngạch"
             value={form.quota}
             onChange={e => setForm(f => ({ ...f, quota: Number(e.target.value) }))} />
         </div>
         <div className="col-auto">
           <button className="btn btn-primary" onClick={onSave}>
-            {editingId ? 'Update' : 'Add'}
+            {editingId ? 'Cập nhật' : 'Thêm'}
           </button>
           {editingId && (
             <button className="btn btn-secondary ms-2" onClick={resetForm}>
-              Cancel
+              Hủy
             </button>
           )}
         </div>
@@ -77,7 +77,7 @@ export default function Tickets() {
 
       <table className="table table-sm">
         <thead>
-          <tr><th>Name</th><th>Price</th><th>Quota</th><th>Sold</th><th /></tr>
+          <tr><th>Tên</th><th>Giá</th><th>Hạn ngạch</th><th>Đã bán</th><th /></tr>
         </thead>
         <tbody>
           {list.map(t => (
@@ -87,8 +87,8 @@ export default function Tickets() {
               <td>{t.quota}</td>
               <td>{t.sold}</td>
               <td className="text-end">
-                <button className="btn btn-outline-primary btn-sm me-2" onClick={() => startEdit(t)}>Edit</button>
-                <button className="btn btn-outline-danger btn-sm" onClick={async () => { await deleteTicket(t.id); await refresh() }}>Delete</button>
+                <button className="btn btn-outline-primary btn-sm me-2" onClick={() => startEdit(t)}>Chỉnh sửa</button>
+                <button className="btn btn-outline-danger btn-sm" onClick={async () => { await deleteTicket(t.id); await refresh() }}>Xóa</button>
               </td>
             </tr>
           ))}

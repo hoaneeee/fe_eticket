@@ -6,4 +6,4 @@ import { http } from './http'
  * @returns {Promise<Object>} - dữ liệu trả về từ server
  */
 export const checkin = (code) => 
-  http.post('/admin/v1/checkin', { code }).then(r => r.data)
+  http.post('/admin/v1/checkins', { code }).then(r => r.data)

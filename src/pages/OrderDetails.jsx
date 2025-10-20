@@ -66,7 +66,7 @@ export default function OrderDetails() {
                 <strong>Sự kiện:</strong> {order.eventName ?? "-"}
               </div>
               <div>
-                <strong>Khách hàng:</strong> {order.userEmail ?? "Guest"}
+                <strong>Khách hàng:</strong> {order.userEmail ?? "Khách vãng lai"}
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function OrderDetails() {
       <table className="table table-sm">
         <thead>
           <tr>
-            <th>Ticket Type</th>
+            <th>Loại vé</th>
             <th>Giá</th>
             <th>Số lượng</th>
             <th>Tạm tính</th>

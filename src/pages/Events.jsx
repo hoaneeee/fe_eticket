@@ -72,7 +72,7 @@ export default function Events() {
       bannerUrl: form.bannerUrl?.trim() || null,
       description: form.description?.trim() || null
     }
-    if (!body.title) { alert('Title required'); return }
+    if (!body.title) { alert('Tiêu đề bắt buộc'); return }
 
     if (editingId) await updateEvent(editingId, body)
     else await createEvent(body)
@@ -97,12 +97,12 @@ export default function Events() {
 
   return (
     <div>
-      <h3 className="mb-3">Events</h3>
+      <h3 className="mb-3">Sự kiện</h3>
 
       {/* Form */}
       <div className="row g-2 mb-3">
         <div className="col">
-          <input className="form-control" placeholder="Title"
+          <input className="form-control" placeholder="Tiêu đề"
                  value={form.title}
                  onChange={e=>setForm(f=>({...f,title:e.target.value}))}/>
         </div>
@@ -122,7 +122,7 @@ export default function Events() {
           <select className="form-select"
                   value={form.venueId}
                   onChange={e=>setForm(f=>({...f, venueId:e.target.value}))}>
-            <option value="">-- Venue --</option>
+            <option value="">-- Địa điểm --</option>
             {venues.map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
           </select>
         </div>
@@ -133,7 +133,7 @@ export default function Events() {
                   value={form.seatMapId}
                   onChange={e=>setForm(f=>({...f, seatMapId:e.target.value}))}
                   disabled={!form.venueId || !seatMaps.length}>
-            <option value="">{form.venueId ? '-- Seat Map --' : 'Chọn Venue trước'}</option>
+            <option value="">{form.venueId ? '-- Sơ đồ chỗ ngồi --' : 'Chọn Venue trước'}</option>
             {seatMaps.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
           </select>
         </div>
@@ -141,16 +141,16 @@ export default function Events() {
         <div className="col">
           <select className="form-select" value={form.status}
                   onChange={e=>setForm(f=>({...f,status:e.target.value}))}>
-            <option value="PUBLISHED">PUBLISHED</option>
-            <option value="DRAFT">DRAFT</option>
-            <option value="CANCELLED">CANCELLED</option>
+            <option value="PUBLISHED">Đã xuất bản</option>
+            <option value="DRAFT">Bản nháp</option>
+            <option value="CANCELLED">Đã hủy</option>
           </select>
         </div>
 
         {/* Banner upload + URL */}
         <div className="col-12 col-md">
           <div className="input-group">
-            <input className="form-control" placeholder="Banner URL"
+            <input className="form-control" placeholder="URL Banner"
                    value={form.bannerUrl}
                    onChange={e=>setForm(f=>({...f,bannerUrl:e.target.value}))}/>
             <input type="file" className="form-control" accept="image/*"
@@ -170,25 +170,25 @@ export default function Events() {
         </div>
 
         <div className="col-12">
-          <input className="form-control" placeholder="Description"
+          <input className="form-control" placeholder="Mô tả"
                  value={form.description}
                  onChange={e=>setForm(f=>({...f,description:e.target.value}))}/>
         </div>
 
         <div className="col-12 col-md-auto d-grid">
-          <button className="btn btn-primary" onClick={onSave}>{editingId?'Update':'Create'}</button>
-          {editingId && <button className="btn btn-secondary mt-2" onClick={resetForm}>Cancel</button>}
+          <button className="btn btn-primary" onClick={onSave}>{editingId?'Cập nhật':'Tạo'}</button>
+          {editingId && <button className="btn btn-secondary mt-2" onClick={resetForm}>Hủy</button>}
         </div>
       </div>
 
       {/* List */}
       <div className="d-flex align-items-center gap-2 mb-2">
-        {loading && <span className="small text-muted">Loading…</span>}
+        {loading && <span className="small text-muted">Đang tải…</span>}
       </div>
 
       <table className="table table-sm align-middle">
         <thead><tr>
-          <th>ID</th><th>Title</th><th>Date</th><th>Venue</th><th>SeatMap</th><th>Status</th><th/>
+          <th>ID</th><th>Tiêu đề</th><th>Ngày</th><th>Địa điểm</th><th>Sơ đồ chỗ ngồi</th><th>Trạng thái</th><th/>
         </tr></thead>
         <tbody>
         {data?.content?.map(e=>(
@@ -202,10 +202,10 @@ export default function Events() {
               e.status==='PUBLISHED'?'bg-success':e.status==='DRAFT'?'bg-secondary':'bg-danger'
             }`}>{e.status}</span></td>
             <td className="text-end">
-              <Link className="btn btn-outline-secondary btn-sm me-2" to={`/admin/tickets/${e.id}`}>Tickets</Link>
-              <Link className="btn btn-outline-warning btn-sm me-2" to={`/admin/events/${e.id}/zone-pricing`}>Zone Pricing</Link>
-              <button className="btn btn-outline-primary btn-sm me-2" onClick={()=>startEdit(e)}>Edit</button>
-              <button className="btn btn-outline-danger btn-sm" onClick={async()=>{ await deleteEvent(e.id); refresh() }}>Delete</button>
+              <Link className="btn btn-outline-secondary btn-sm me-2" to={`/admin/tickets/${e.id}`}>Vé</Link>
+              <Link className="btn btn-outline-warning btn-sm me-2" to={`/admin/events/${e.id}/zone-pricing`}>Giá theo khu vực</Link>
+              <button className="btn btn-outline-primary btn-sm me-2" onClick={()=>startEdit(e)}>Chỉnh sửa</button>
+              <button className="btn btn-outline-danger btn-sm" onClick={async()=>{ await deleteEvent(e.id); refresh() }}>Xóa</button>
             </td>
           </tr>
         ))}
@@ -213,8 +213,8 @@ export default function Events() {
       </table>
 
       <div className="d-flex gap-2">
-        <button className="btn btn-light" disabled={page<=0} onClick={()=>setPage(p=>p-1)}>Prev</button>
-        <button className="btn btn-light" disabled={page>=(data?.totalPages-1)} onClick={()=>setPage(p=>p+1)}>Next</button>
+        <button className="btn btn-light" disabled={page<=0} onClick={()=>setPage(p=>p-1)}>Trước</button>
+        <button className="btn btn-light" disabled={page>=(data?.totalPages-1)} onClick={()=>setPage(p=>p+1)}>Tiếp</button>
       </div>
     </div>
   )
