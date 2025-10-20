@@ -6,26 +6,69 @@ export default function Venues(){
   const [data,setData] = useState(null)
   const [editingId,setEditingId] = useState(null)
   const [form,setForm] = useState({ name:'', address:'', capacity:'', imageUrl:'', description:'' })
+  const [error,setError] = useState('')
+  const [message,setMessage] = useState('')
 
-  const refresh = ()=> listVenues(page, 10).then(setData)
-  useEffect(()=>{ refresh() },[page])
-
-  function reset(){ setForm({ name:'', address:'', capacity:'', imageUrl:'', description:'' }); setEditingId(null) }
-
-  async function onSave(){
-    const body = { ...form, capacity: form.capacity ? Number(form.capacity) : null }
-    if (editingId) await updateVenue(editingId, body)
-    else await createVenue(body)
-    reset(); refresh()
+  const refresh = async ()=>{
+    try {
+      const res = await listVenues(page, 10)
+      setData(res)
+    } catch(e){
+      setError(e.response?.data || e.message)
+    }
   }
 
-  function startEdit(v){ setEditingId(v.id); setForm({
-    name:v.name, address:v.address, capacity:v.capacity||'', imageUrl:v.imageUrl||'', description:v.description||''
-  }) }
+  useEffect(()=>{ refresh() },[page])
+
+  const reset = ()=>{
+    setForm({ name:'', address:'', capacity:'', imageUrl:'', description:'' })
+    setEditingId(null)
+    setError('')
+    setMessage('')
+  }
+
+  const onSave = async ()=>{
+    try{
+      setError('')
+      setMessage('')
+      const body = { ...form, capacity: form.capacity ? Number(form.capacity) : null }
+      if(editingId) await updateVenue(editingId, body)
+      else await createVenue(body)
+      setMessage(editingId ? 'Cập nhật thành công' : 'Thêm mới thành công')
+      reset()
+      refresh()
+    }catch(e){
+      setError(e.response?.data || e.message)
+    }
+  }
+
+  const onDelete = async(id)=>{
+    try{
+      setError('')
+      setMessage('')
+      await deleteVenue(id)
+      setMessage('Đã xóa thành công')
+      refresh()
+    }catch(e){
+      setError(e.response?.data || e.message)
+    }
+  }
+
+  const startEdit = (v)=>{
+    setEditingId(v.id)
+    setForm({
+      name:v.name, address:v.address, capacity:v.capacity||'', imageUrl:v.imageUrl||'', description:v.description||''
+    })
+    setError('')
+    setMessage('')
+  }
 
   return (
     <div>
       <h3 className="mb-3">Địa điểm</h3>
+
+      {error && <div className="alert alert-danger py-2">{error}</div>}
+      {message && <div className="alert alert-success py-2">{message}</div>}
 
       <div className="row g-2 mb-3">
         <div className="col-3"><input className="form-control" placeholder="Tên"
@@ -47,6 +90,9 @@ export default function Venues(){
       <table className="table table-sm align-middle">
         <thead><tr><th>Tên</th><th>Địa chỉ</th><th>Sức chứa</th><th/></tr></thead>
         <tbody>
+          {!data?.content?.length && (
+            <tr><td colSpan={4}>Không có dữ liệu</td></tr>
+          )}
           {data?.content?.map(v=>(
             <tr key={v.id}>
               <td>{v.name}</td>
@@ -54,7 +100,7 @@ export default function Venues(){
               <td>{v.capacity ?? '-'}</td>
               <td className="text-end">
                 <button className="btn btn-outline-primary btn-sm me-2" onClick={()=>startEdit(v)}>Chỉnh sửa</button>
-                <button className="btn btn-outline-danger btn-sm" onClick={async()=>{ await deleteVenue(v.id); refresh() }}>Xóa</button>
+                <button className="btn btn-outline-danger btn-sm" onClick={()=>onDelete(v.id)}>Xóa</button>
               </td>
             </tr>
           ))}
