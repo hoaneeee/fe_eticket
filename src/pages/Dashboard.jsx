@@ -366,9 +366,8 @@ export default function Dashboard() {
       <div className="etk-pane p-3">
         {topEventsData.length ? (
           <>
-            {/* Bar ngang để tên dài vẫn gọn */}
             <div style={{ width: "100%", height: 420 }}>
-              <ResponsiveContainer>
+              <ResponsiveContainer width="100%" height={420}>
                 <BarChart
                   data={[...topEventsData]
                     .sort((a, b) =>
@@ -377,12 +376,17 @@ export default function Dashboard() {
                         : b.tickets - a.tickets
                     )
                     .map((x, i) => ({ ...x, _idx: i }))}
-                  layout="vertical"
-                  margin={{ top: 8, right: 24, bottom: 8, left: 8 }}
+                  margin={{ top: 16, right: 16, left: 24, bottom: 80 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
-                    type="number"
+                    dataKey="title"
+                    tickFormatter={(v) => truncate(v, 18)}
+                    angle={-30}
+                    textAnchor="end"
+                    height={60}
+                  />
+                  <YAxis
                     tickFormatter={(v) =>
                       topMode === "revenue"
                         ? v >= 1_000_000
@@ -390,12 +394,7 @@ export default function Dashboard() {
                           : `${Math.round(v / 1_000)}k`
                         : fmtInt(v)
                     }
-                  />
-                  <YAxis
-                    type="category"
-                    dataKey="title"
-                    width={180}
-                    tickFormatter={(v) => truncate(v, 28)}
+                    width={60}
                   />
                   <Tooltip content={<TopTooltip mode={topMode} />} />
                   <Legend />
@@ -417,10 +416,9 @@ export default function Dashboard() {
                   <Bar
                     dataKey={topMode === "revenue" ? "revenue" : "tickets"}
                     name={topMode === "revenue" ? "Doanh thu" : "Vé"}
-                    radius={[8, 8, 8, 8]}
+                    radius={[8, 8, 0, 0]}
                     fillOpacity={1}
                     strokeOpacity={0.8}
-                    // tô màu theo rank
                     fill={(d) => `url(#grad-${d._idx % PALETTE.length})`}
                     stroke={(d) => PALETTE[d._idx % PALETTE.length]}
                   />
@@ -428,7 +426,6 @@ export default function Dashboard() {
               </ResponsiveContainer>
             </div>
 
-            {/* Danh sách chi tiết dưới chart */}
             <ul className="etk-list small mt-3 mb-0">
               {[...topEventsData]
                 .sort((a, b) =>
@@ -468,6 +465,7 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
 /* bieu do dung  */
 // {/* <SectionHeader
